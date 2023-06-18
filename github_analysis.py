@@ -24,9 +24,6 @@ user_id = user_url.split('/')[-1]
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
 
-# Configure OpenAI API key
-# openai.api_key = openai_api_key
-
 if st.button('Submit'):
 
     # Initialize OpenAI model
@@ -58,7 +55,6 @@ if st.button('Submit'):
     # Clone the repository
     def clone_repository(repo_url, repo_path):
         git.Repo.clone_from(repo_url, repo_path)
-        print(f'{repo_url} cloned')
 
     # Remove unwanted files
     def remove_unwanted_files(repo_path):
@@ -128,7 +124,6 @@ if st.button('Submit'):
     def evaluate_complexity_scores(repo_url):
         repo_path = 'temp_repo'
         clone_repository(repo_url, repo_path)
-        print(f'{repo_url} cloned')
 
         remove_unwanted_files(repo_path)
 
@@ -155,8 +150,6 @@ if st.button('Submit'):
 
     for repo in user_repositories:
         complexity_scores[repo.name] = evaluate_complexity_scores(repo.clone_url)
-        print(f'{repo.clone_url} evaluated')
-        print(complexity_scores)
 
     # Find the repository with the highest complexity score
     most_complex_repo = max(complexity_scores, key=complexity_scores.get)
@@ -164,19 +157,16 @@ if st.button('Submit'):
     print(f"The most technically complex repository is: {most_complex_repo} with a score of {complexity_scores[most_complex_repo]:.2f}")
     st.write(f"The most technically complex repository is: {most_complex_repo}.")
     st.write(f"The URL to the repo -> https://www.github.com/{user_id}/{most_complex_repo}")
+    
     # Justification prompt engineering
     justification_prompt_template = """
     Given the code snippets from the repository '{repo_name}', the model has determined it to be the most technically complex. Please provide a detailed analysis justifying this complexity score.
     """
-
-    # Get the most complex repository's code
-    # most_complex_repo_code = ""  # Replace this with the actual code
 
     # Get the justification
     PROMPT = PromptTemplate(template=justification_prompt_template, input_variables=["repo_name"])
     chain = LLMChain(llm=llm, prompt=PROMPT)
     justification = chain({"repo_name": most_complex_repo}, return_only_outputs=True)
 
-    print(f"Justification for {most_complex_repo} being the most technically complex repository: {justification['text']}")
     st.write("Justification:")
     st.markdown(justification["text"], unsafe_allow_html=True)
