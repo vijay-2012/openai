@@ -27,7 +27,7 @@ To run this code, please follow these steps:
 4. Run the Streamlit application:
 
    ```bash
-   streamlit run github_automated_analysis.py
+   streamlit run github_analysis.py
    ```
 
    The Streamlit application will open in your web browser.
