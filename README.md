@@ -11,7 +11,7 @@ To run this code, please follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone [repository URL]
+   git clone https://github.com/vijay-2012/openai.git
    ```
 
 2. Install the required dependencies:
