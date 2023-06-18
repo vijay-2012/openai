@@ -17,13 +17,15 @@ from notebook_converter import export_ipynb_to_py
 
 st.set_page_config(page_title='Github Automated Analysis')
 
-api_key = st.text_input('Enter OPENAI API KEY', type='password')
-
+openai_api_key = st.text_input('Enter OPENAI API KEY', type='password')
+print(type(openai_api_key))
 user_url = st.text_input('Enter your Github URL')
 user_id = user_url.split('/')[-1]
 
+os.environ["OPENAI_API_KEY"] = openai_api_key
+
 # Configure OpenAI API key
-openai.api_key = api_key
+# openai.api_key = openai_api_key
 
 if st.button('Submit'):
 
