@@ -27,7 +27,7 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 if st.button('Submit'):
 
     # Initialize OpenAI model
-    llm = OpenAI(temperature=0.7, model_name='gpt-3.5-turbo-0613', max_tokens=1024, max_retries=2)
+    llm = OpenAI(temperature=0.7, model_name='text-davinci-003', max_tokens=1024, max_retries=2)
 
     # Prompt engineering
     prompt_template = """
